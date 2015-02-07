@@ -1,0 +1,36 @@
+ShenTest
+========
+
+ShenTest is a simple, expressive testing framework for Shen programs.
+
+Status: Alpha
+-------------
+It's still cooking. Here's a quick taste to whet your appetite:
+
+[source,shen]
+----
+(load "shen-test.shen")
+
+(testing "(vector N)"
+  given
+    N is 3
+    V is (vector N)
+  verify
+    V satisfies vector?
+    (limit V) is N)
+
+(testing "(<-vector V N)"
+  given V is (vector-> (vector 2) 1 a-previously-stored-value)
+  verify
+    (<-vector V 1) is a-previously-stored-value
+    (<-vector V -1) raises an error
+    (<-vector V 0) raises "cannot access 0th element of a vector"
+    (<-vector V 2) raises "vector element not found"
+    (<-vector V 3) raises an error)
+----
+
+A few more examples are in link:sample-tests.shen[].
+
+License
+-------
+ShenTest is Copyright (C) 2015 Greg Spurrier. It is distributed under the terms of the MIT License. See link:LICENSE.txt[] for the details.
